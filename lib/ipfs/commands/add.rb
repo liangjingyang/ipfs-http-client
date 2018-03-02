@@ -5,7 +5,7 @@ require 'ipfs/content/link'
 
 module IPFS
   module Commands
-    class Add
+    class Add < IPFS::Commands::Command
       def self.call(client, file)
         parse query(client, file)
       end
@@ -14,7 +14,7 @@ module IPFS
 
       def self.query(client, file)
         form = multiform(file)
-        HTTP.get("#{client.api_url}/add?stream-channels=true",
+        http_get(client, "#{client.api_url}/add?stream-channels=true",
                  body: form.to_s,
                  headers: { 'Content-Type' => form.content_type }).to_s
       end

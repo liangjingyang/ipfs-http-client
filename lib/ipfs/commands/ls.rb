@@ -4,7 +4,7 @@ require 'ipfs/content/node'
 
 module IPFS
   module Commands
-    class LS
+    class LS < IPFS::Commands::Command
       def self.call(client, node)
         parse query(client, node)
       end
@@ -12,7 +12,7 @@ module IPFS
       private
 
       def self.query(client, node)
-        HTTP.get("#{client.api_url}/ls?arg=#{node}&stream-channels=true").to_s
+        http_get(client, "#{client.api_url}/ls?arg=#{node}&stream-channels=true")
       end
 
       def self.parse(response)

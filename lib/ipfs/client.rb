@@ -1,3 +1,4 @@
+require 'ipfs/commands/command'
 require 'ipfs/commands/ls'
 require 'ipfs/commands/cat'
 require 'ipfs/commands/add'
@@ -9,15 +10,17 @@ module IPFS
     DEFAULT_PORT = 5001
     API_VERSION = 'v0'.freeze
 
-    attr_reader :host, :port
+    attr_reader :host, :port, :user, :password
 
     def self.default
       new(host: DEFAULT_HOST, port: DEFAULT_PORT)
     end
 
-    def initialize(host:, port:)
+    def initialize(host:, port:, user:, password:)
       @host = host
       @port = port
+      @user = user
+      @password = password
     end
 
     def api_url
